@@ -1,0 +1,13 @@
+{
+  "name": "gatsby-source-custom-api",
+  "description": "pl",
+  "version": "1.0.0",
+  "author": "Andrzej Franek",
+  "type": "commonjs",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "gatsby-source-filesystem": "^4.1.0",
+    "lodash": "^4.17.21"
+  }
+}
