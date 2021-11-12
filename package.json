@@ -1,10 +1,21 @@
 {
-  "name": "gatsby-source-custom-api",
-  "description": "pl",
+  "name": "@teh23/gatsby-source-api",
+  "description": "Gatsby source plugin for create node with images from external API.",
   "version": "1.0.0",
   "author": "Andrzej Franek",
   "type": "commonjs",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/teh23/gatsby-source-api",
+    "type": "git"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby source plugin",
+    "source",
+    "image"
+  ],
   "dependencies": {
     "axios": "^0.24.0",
     "gatsby-source-filesystem": "^4.1.0",
