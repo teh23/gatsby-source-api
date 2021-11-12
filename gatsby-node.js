@@ -6,7 +6,7 @@ const createImageNode = require("./utils/createImageNode")
 const transformField = require("./utils/transformField")
 const normalizeKeys = require("./utils/normalizeKeys")
 const addField = require("./utils/addField")
-
+const isValidHttpUrl = require("./utils/isValidHttpUrl")
 exports.createSchemaCustomization = async (
   { actions, reporter },
   { schema }
@@ -32,7 +32,7 @@ exports.sourceNodes = async (
     reporter.panic(
       `Expect images as array if u have only one image put it into array for ex. images: ['exampleUrl'] `
     )
-
+  typeof baseType !== "string" && reporter.panic("base type is required")
   const data = await axios
     .get(url, {
       auth,
@@ -62,6 +62,9 @@ exports.sourceNodes = async (
     }
     if (Array.isArray(images)) {
       for (const field of createHelperObject(images, normalizeData)) {
+        if (!isValidHttpUrl(field.linkToImage)) {
+          reporter.panic("Invalid image url")
+        }
         const imageNode = await createImageNode({
           url: field.linkToImage,
           parentNodeId: node.id,
