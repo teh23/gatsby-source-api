@@ -7,17 +7,14 @@ const transformField = require("./utils/transformField")
 const normalizeKeys = require("./utils/normalizeKeys")
 const addField = require("./utils/addField")
 const isValidHttpUrl = require("./utils/isValidHttpUrl")
+const createTypesCustom = require("./src/createTypesCustom")
+const checkType = require("./utils/checkType")
+
 exports.createSchemaCustomization = async (
   { actions, reporter },
-  { schema }
+  { schema, images }
 ) => {
-  if (typeof schema === "undefined") {
-    reporter.panic(`Schema error. No schema provide    
-    `)
-  } else {
-    const { createTypes } = actions
-    createTypes(schema)
-  }
+  createTypesCustom(schema, images, reporter, actions)
 }
 
 exports.sourceNodes = async (
@@ -27,12 +24,13 @@ exports.sourceNodes = async (
   const { createNode } = actions
   const { url, baseType, images, headers, auth, transform, add } = configOptions
 
-  typeof url !== "string" && reporter.panic("Url error. Require a valid url")
-  typeof images === "string" &&
+  !checkType(url, "string") && reporter.panic("Url error. Require a valid url")
+  checkType(images, "string") &&
     reporter.panic(
       `Expect images as array if u have only one image put it into array for ex. images: ['exampleUrl'] `
     )
-  typeof baseType !== "string" && reporter.panic("base type is required")
+  !checkType(baseType, "string") && reporter.panic("base type is required")
+
   const data = await axios
     .get(url, {
       auth,
@@ -44,8 +42,9 @@ exports.sourceNodes = async (
   data.forEach(async (row, idx) => {
     const normalizeData = normalizeKeys(row, reporter)
 
-    typeof transform !== "undefined" && transformField(normalizeData, transform)
-    typeof add !== "undefined" && addField(normalizeData, add)
+    !checkType(transform, "undefined") &&
+      transformField(normalizeData, transform)
+    !checkType(add, "undefined") && addField(normalizeData, add)
 
     const nodeContent = JSON.stringify(normalizeData)
 
