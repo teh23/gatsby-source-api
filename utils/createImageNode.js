@@ -9,16 +9,6 @@ module.exports = async function ({
   createNodeId,
   auth,
 }) {
-  if (auth)
-    return await createRemoteFileNode({
-      url,
-      parentNodeId,
-      store,
-      getCache,
-      createNode,
-      createNodeId,
-      auth: { htaccess_user: auth.username, htaccess_pass: auth.password },
-    })
   return await createRemoteFileNode({
     url,
     parentNodeId,
@@ -26,5 +16,9 @@ module.exports = async function ({
     getCache,
     createNode,
     createNodeId,
+    auth: {
+      htaccess_user: auth && auth.username,
+      htaccess_pass: auth && auth.password,
+    },
   })
 }
