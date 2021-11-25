@@ -53,24 +53,27 @@ exports.sourceNodes = async (
         idx
       ),
     }
+    try {
+      for (const field of createHelperObject(images, normalizeData)) {
+        if (!isValidHttpUrl(field.linkToImage)) {
+          reporter.panic("Invalid image url")
+        }
+        const imageNode = await createImageNode({
+          url: field.linkToImage,
+          parentNodeId: node.id,
+          store,
+          getCache,
+          createNode,
+          createNodeId,
+          auth,
+        })
 
-    for (const field of createHelperObject(images, normalizeData)) {
-      if (!isValidHttpUrl(field.linkToImage)) {
-        reporter.panic("Invalid image url")
+        if (imageNode) {
+          node[`${field.nameLocal}___NODE`] = await imageNode.id
+        }
       }
-      const imageNode = await createImageNode({
-        url: field.linkToImage,
-        parentNodeId: node.id,
-        store,
-        getCache,
-        createNode,
-        createNodeId,
-        auth,
-      })
-
-      if (imageNode) {
-        node[`${field.nameLocal}___NODE`] = await imageNode.id
-      }
+    } catch (e) {
+      //
     }
     createNode(node)
   })
