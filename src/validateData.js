@@ -1,4 +1,4 @@
-const checkType = require("./utils/checkType")
+const checkType = require("../utils/checkType")
 
 module.exports = (reporter, url, images, baseType) => {
   !checkType(url, "string") && reporter.panic("Url error. Require a valid url")
