@@ -1,4 +1,4 @@
-module.exports = function (images, row, auth = "") {
+module.exports = function (images, row) {
   let json = []
   images.forEach(image => {
     JSON.stringify(row, (key, value) => {
@@ -7,7 +7,6 @@ module.exports = function (images, row, auth = "") {
           keyName: key,
           linkToImage: value,
           nameLocal: `${key}Local`,
-          auth,
         })
       }
       return value
