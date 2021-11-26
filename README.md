@@ -38,7 +38,7 @@ yarn add @teh23/gatsby-source-api
 
 ## How to use
 
-###1. Basic usage
+### 1. Basic usage
 `url`, `baseType`, `schema` are required values. Schema is shape of the data and to avoid unwanted errors 
 is required, baseType is name of your root node name for example below is `albums` we use it in `baseType` and in 
 `schema`
@@ -68,7 +68,7 @@ plugins: [
       },
   ],
 ```
-###2. Download images
+### 2. Download images
 We are putting keys of urls which we want download into arrays. Also, we have to link download images.
 </br>
 ```${imageName}Local: File @link(by: "id", from: "${imageName}Local___NODE")```</br>
@@ -101,7 +101,7 @@ plugins: [
 ```
 ![](https://i.imgur.com/im22gOz.png)
 
-###3. Add or edit
+### 3. Add or edit
 
 `name` is field name if given field doesn't exist it will be added, plugin use lodash set 
 https://lodash.com/docs/4.17.15#set </br> 
