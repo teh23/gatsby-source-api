@@ -1,5 +1,4 @@
-<br/>
-<p style="text-align: center; font-size: 36px; font-weight: bold;">GATSBY-SOURCE-API</p>
+# GATSBY-SOURCE-API 
 
 ## Table of Contents
 
