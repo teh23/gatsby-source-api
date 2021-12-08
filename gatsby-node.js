@@ -36,10 +36,9 @@ exports.sourceNodes = async (
     .then(res => res.data)
     .catch(err => reporter.panic(err))
 
-  data.forEach(async (row, idx) => {
-    transformNode(transform, row)
-
-    const normalizeData = normalizeKeys(row, reporter)
+  for ([idx, row] of data.entries()) {
+    const transformedNode = transformNode(transform, row)
+    const normalizeData = normalizeKeys(transformedNode, reporter)
 
     const nodeContent = JSON.stringify(normalizeData)
     const node = {
@@ -75,6 +74,6 @@ exports.sourceNodes = async (
     } catch (e) {
       //
     }
-    createNode(node)
-  })
+    await createNode(node)
+  }
 }
